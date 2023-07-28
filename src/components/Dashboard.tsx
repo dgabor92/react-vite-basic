@@ -2,10 +2,13 @@ import Navbar from "./Navbar";
 import { useGetUserQuery } from "../lib/api";
 import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
+interface DashboardProps {
+  children: React.ReactNode;
+}
+
+function Dashboard({ children }: DashboardProps) {
   const navigate = useNavigate();
   const { data: user, isLoading, isError } = useGetUserQuery();
-  console.log("user", user);
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -29,7 +32,7 @@ function Dashboard() {
         </div>
       </header>
       <main>
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"></div>
+        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{children}</div>
       </main>
     </div>
   );
