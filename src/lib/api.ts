@@ -1,5 +1,4 @@
 import axios from "../config/http";
-import { useNavigate } from "react-router-dom";
 
 export interface User {
   id: number;
@@ -41,6 +40,14 @@ export const signUp = async (
     password,
     password_confirmation,
   });
+  if (response.status !== 200) {
+    throw new Error("Invalid credentials");
+  }
+  return response.data;
+};
+
+export const getUser = async (): Promise<User> => {
+  const response = await axios.get("/user");
   if (response.status !== 200) {
     throw new Error("Invalid credentials");
   }

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { logIn } from "../lib/api";
+import { useNavigate } from "react-router-dom";
 
 type LoginFormProps = {
   email: string;
@@ -8,6 +9,7 @@ type LoginFormProps = {
 };
 
 export default function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState<LoginFormProps>({
     email: "",
     password: "",
@@ -16,6 +18,7 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     logIn(form.email, form.password);
+    navigate("/dashboard");
   };
 
   return (
