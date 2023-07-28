@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import { logIn } from "../lib/api";
 
 type LoginFormProps = {
   email: string;
@@ -14,6 +15,7 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    logIn(form.email, form.password);
   };
 
   return (
