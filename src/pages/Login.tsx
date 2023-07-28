@@ -1,8 +1,5 @@
 import * as React from "react";
 import { useState } from "react";
-import axiosInstance from "../config/http";
-import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 
 type LoginFormProps = {
   email: string;
@@ -15,27 +12,8 @@ export default function Login() {
     password: "",
   });
 
-  const mutation = useMutation(
-    (form: LoginFormProps) => axiosInstance.post("/login", form),
-    {
-      onSuccess: (data) => {
-        localStorage.setItem("token", data.data.token);
-      },
-      onError: (error: AxiosError) => {
-        if (error.response?.status === 401) {
-          alert("Invalid credentials");
-        } else if (error.response?.status === 500) {
-          alert("Server error");
-        } else {
-          alert("Something went wrong");
-        }
-      },
-    }
-  );
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutation.mutate(form);
   };
 
   return (

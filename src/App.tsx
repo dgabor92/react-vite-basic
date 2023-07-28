@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
+import Dashboard from "./components/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
