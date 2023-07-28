@@ -28,3 +28,21 @@ export const logIn = async (
   }
   return response.data;
 };
+
+export const signUp = async (
+  name: string,
+  email: string,
+  password: string,
+  password_confirmation: string
+): Promise<unknown> => {
+  const response = await axios.post("/register", {
+    name,
+    email,
+    password,
+    password_confirmation,
+  });
+  if (response.status !== 200) {
+    throw new Error("Invalid credentials");
+  }
+  return response.data;
+};
