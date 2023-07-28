@@ -1,3 +1,4 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "../config/http";
 
 export interface User {
@@ -21,11 +22,17 @@ export const logIn = async (
   email: string,
   password: string
 ): Promise<LoginResponse> => {
-  const response = await axios.post("/login", { email, password });
-  if (response.status !== 200) {
-    throw new Error("Invalid credentials");
-  }
+  const response = await axios.post("/login", {
+    email,
+    password,
+  });
   return response.data;
+};
+
+export const useLoginMutation = () => {
+  return useMutation((credential: { email: string; password: string }) =>
+    logIn(credential.email, credential.password)
+  );
 };
 
 export const signUp = async (
@@ -52,4 +59,8 @@ export const getUser = async (): Promise<User> => {
     throw new Error("Invalid credentials");
   }
   return response.data;
+};
+
+export const useGetUserQuery = () => {
+  return useQuery<User>(["user"], getUser);
 };

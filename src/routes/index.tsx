@@ -3,7 +3,7 @@ import { useRoutes, RouteObject } from "react-router-dom";
 import Login from "../pages/Login";
 import Welcome from "../pages/Welcome";
 import Signup from "../pages/Signup";
-import Dashboard from "../components/Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
 const NotFound = lazy(() => import("../pages/404"));
 
@@ -22,7 +22,7 @@ const routeList: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <PrivateRoute />,
   },
   {
     path: "*",

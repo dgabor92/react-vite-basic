@@ -3,7 +3,7 @@ import { notification } from "antd";
 import { createContext, useContext } from "react";
 
 const axios: AxiosInstance = Axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:8000/api",
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 1000,
   headers: {
     "Content-Type": "application/json",
@@ -14,29 +14,13 @@ axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
-  } else {
-    config.headers.Authorization = "";
   }
   return config;
 });
 
 axios.interceptors.response.use(
   (response) => {
-    const data = response.data;
-    console.log("response", response);
-    if (response.status === 200) {
-      return data;
-    }
-
-    notification.error({
-      message: `Error ${response.status}: ${response.statusText}`,
-      description: data || response.statusText || "Error",
-    });
-
-    if (response.status === 401) {
-      window.location.href = "/login";
-    }
-    return Promise.reject(new Error(response.statusText || "Error"));
+    return response;
   },
   (error) => {
     console.log("error:", error, error.response);

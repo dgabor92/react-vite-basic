@@ -1,6 +1,23 @@
 import Navbar from "./Navbar";
+import { useGetUserQuery } from "../lib/api";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const { data: user, isLoading, isError } = useGetUserQuery();
+  console.log("user", user);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error</div>;
+  }
+
+  if (!user) {
+    navigate("/login");
+  }
+
   return (
     <div className="min-h-full">
       <Navbar />
