@@ -7,10 +7,10 @@ import { useMutation, QueryClient } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Dashboard", href: "/dashboard", current: true },
+  // { name: "Team", href: "#", current: false },
+  // { name: "Projects", href: "#", current: false },
+  // { name: "Calendar", href: "#", current: false },
 ];
 
 const queryClient = new QueryClient();
