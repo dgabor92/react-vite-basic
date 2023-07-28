@@ -1,6 +1,10 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { User, logOut } from "../lib/api";
+import { useNavigate } from "react-router-dom";
+import { useMutation, QueryClient } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -9,11 +13,24 @@ const navigation = [
   { name: "Calendar", href: "#", current: false },
 ];
 
+const queryClient = new QueryClient();
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
+interface NavbarProps {
+  user: User;
+}
 
-export default function Navbar() {
+export default function Navbar({ user }: NavbarProps) {
+  const navigate = useNavigate();
+  const logOutMutation = useMutation<void, AxiosResponse<unknown>>(logOut, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+      navigate("/login");
+    },
+  });
+
   return (
     <Disclosure as="nav" className="bg-purple-800">
       {({ open }) => (
@@ -69,7 +86,7 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={user?.photo_url}
                         alt=""
                       />
                     </Menu.Button>
@@ -83,7 +100,7 @@ export default function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none cursor-pointer">
                       <Menu.Item>
                         {({ active }) => (
                           <a
@@ -113,7 +130,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            onClick={() => logOutMutation.mutate()}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -129,7 +146,6 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (

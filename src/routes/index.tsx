@@ -1,4 +1,4 @@
-import React, { lazy, FC } from "react";
+import { lazy, FC } from "react";
 import { useRoutes, RouteObject } from "react-router-dom";
 import Login from "../pages/Login";
 import Welcome from "../pages/Welcome";

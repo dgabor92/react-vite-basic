@@ -64,3 +64,8 @@ export const getUser = async (): Promise<User> => {
 export const useGetUserQuery = () => {
   return useQuery<User>(["user"], getUser);
 };
+
+export const logOut = async (): Promise<void> => {
+  const response = await axios.post("/logout");
+  console.log(response);
+};
