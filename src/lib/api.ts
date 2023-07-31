@@ -69,3 +69,19 @@ export const logOut = async (): Promise<void> => {
   const response = await axios.post("/logout");
   console.log(response);
 };
+
+export const changeSettings = async (
+  name: string,
+  email: string
+): Promise<User> => {
+  const response = await axios.patch("/settings/profile", {
+    name,
+    email,
+  });
+  return response.data;
+};
+export const useSettingsMutation = () => {
+  return useMutation((credential: { name: string; email: string }) =>
+    changeSettings(credential.name, credential.email)
+  );
+};

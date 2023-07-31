@@ -1,24 +1,31 @@
 import Dashboard from "../components/Dashboard";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { useGetUserQuery, User } from "../lib/api";
+import { useGetUserQuery, useSettingsMutation } from "../lib/api";
 import { useState } from "react";
 
 function Settings() {
   const { data: user, isLoading, isError } = useGetUserQuery();
+  const settingsMutation = useSettingsMutation();
+  const initialValues = {
+    name: user?.name || "",
+    email: user?.email || "",
+  };
+  const [settingForm, setSettingForm] = useState(initialValues);
 
-  const [settingForm, setSettingForm] = useState({
-    name: "",
-    email: "",
-  });
+  const handleCancel = () => setSettingForm(initialValues);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(settingForm, "settingForm");
+    const response = await settingsMutation.mutateAsync({
+      name: settingForm.name,
+      email: settingForm.email,
+    });
+    console.log(response, "response");
   };
 
   return (
     <Dashboard>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -44,7 +51,7 @@ function Settings() {
                       name="username"
                       id="username"
                       autoComplete="username"
-                      value={user?.name}
+                      value={settingForm.name}
                       onChange={(e) =>
                         setSettingForm({ ...settingForm, name: e.target.value })
                       }
@@ -68,7 +75,7 @@ function Settings() {
                       name="email"
                       id="email"
                       autoComplete="email"
-                      value={user?.email}
+                      value={settingForm.email}
                       onChange={(e) =>
                         setSettingForm({
                           ...settingForm,
@@ -403,6 +410,7 @@ function Settings() {
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
+            onClick={handleCancel}
           >
             Cancel
           </button>
