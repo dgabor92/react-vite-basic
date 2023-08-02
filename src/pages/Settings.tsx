@@ -1,5 +1,5 @@
 import Dashboard from "../components/Dashboard";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
+// import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useGetUserQuery, useSettingsMutation } from "../lib/api";
 import { useState } from "react";
 
@@ -9,6 +9,7 @@ function Settings() {
   const initialValues = {
     name: user?.name || "",
     email: user?.email || "",
+    photo: user?.photo_url || "",
   };
   const [settingForm, setSettingForm] = useState(initialValues);
 
@@ -99,9 +100,14 @@ function Settings() {
                   Photo
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">
-                  <UserCircleIcon
+                  {/* <UserCircleIcon
                     className="h-12 w-12 text-gray-300"
                     aria-hidden="true"
+                  /> */}
+                  <img
+                    src={settingForm.photo}
+                    alt="photo"
+                    className="h-12 w-12 text-gray-300 rounded-full"
                   />
                   <button
                     type="button"

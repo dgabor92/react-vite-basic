@@ -66,6 +66,7 @@ export const useGetUserQuery = () => {
 };
 
 export const logOut = async (): Promise<void> => {
+  localStorage.removeItem("token");
   const response = await axios.post("/logout");
   console.log(response);
 };
