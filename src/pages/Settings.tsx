@@ -1,6 +1,5 @@
-import Dashboard from "../components/Dashboard";
-// import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { useGetUserQuery, useSettingsMutation } from "../lib/api";
+import Dashboard from "@/components/Dashboard";
+import { useGetUserQuery, useSettingsMutation } from "@/lib/api";
 import { useState } from "react";
 
 function Settings() {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useLoginMutation } from "../lib/api";
+import { useLoginMutation } from "@/lib/api";
 import { useNavigate } from "react-router-dom";
 
 type LoginFormProps = {

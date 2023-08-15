@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { signUp } from "../lib/api";
+import { signUp } from "@/lib/api";
 import { useNavigate } from "react-router-dom";
 
 type SignupFormProps = {

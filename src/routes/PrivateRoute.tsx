@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import Dashboard from "../components/Dashboard";
-import { useGetUserQuery } from "../lib/api";
+import Dashboard from "@/components/Dashboard";
+import { useGetUserQuery } from "@/lib/api";
 
 const PrivateRoute: FC = () => {
   const navigate = useNavigate();

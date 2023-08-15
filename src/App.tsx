@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RenderRouter from "./routes";
+import { BrowserRouter } from "react-router-dom";
+import RenderRouter from "@/routes";
 
 function App() {
   return (

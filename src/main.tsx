@@ -2,7 +2,7 @@ import React, { Suspense, useMemo } from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import axios, { AxiosContext } from "./config/http.tsx";
+import axios, { AxiosContext } from "@/config/http.tsx";
 
 import App from "./App.tsx";
 import "./index.css";
